@@ -1,4 +1,4 @@
-module github.com/asachko/telebot
+module github.com/asachko/asbot
 
 go 1.20
 

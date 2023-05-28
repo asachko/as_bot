@@ -2,6 +2,7 @@ APP=$(shell basename $(shell git remote get-url origin))
 REGISTRY=asachko
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETARCH=arm64
+TARGETOS=linux
 IMAGE_TAG=${REGISTRY}/${APP}:${VERSION}-${TARGETARCH}
 
 format: 

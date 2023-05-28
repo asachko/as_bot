@@ -1,12 +1,14 @@
-FROM golang:1.19 AS builder
+FROM --platform=${BUILDPLATFORM} quay.io/projectquay/golang:1.20 AS builder
+ARG TARGETOS
+ARG TARGETARCH
 
 WORKDIR /go/src/app
 COPY . .
-RUN go get
+RUN make get
+RUN make test
 RUN make build
 
-FROM scratch
+FROM scratch AS binary
 WORKDIR /
-COPY --from=builder /go/src/app/as_bot .
-COPY --from=alpine:latest /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs
-ENTRYPOINT [ "./as_bot" ]
+COPY --from=builder /go/src/app .
+ENTRYPOINT [ "as_bot" ]

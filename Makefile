@@ -1,3 +1,15 @@
+linux: TARGETOS=linux
+linux: TARGETARCH=amd64
+linux: image
+
+Windows: TARGETOS=windows
+Windows: TARGETARCH=amd64
+Windows: image
+
+macOS: TARGETOS=darwin
+macOS: TARGETARCH=arm64
+macOS: image
+
 APP=$(shell basename $(shell git remote get-url origin))
 REGISTRY=asachko
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
@@ -26,14 +38,3 @@ clean:
 	rm -rf as_bot
 	docker rmi -f ${IMAGE_TAG}
 
-linux: TARGETOS=linux
-linux: TARGETARCH=amd64
-linux: image
-
-windows: TARGETOS=windows
-windows: TARGETARCH=amd64
-windows: image
-
-macos: TARGETOS=darwin
-macos: TARGETARCH=arm64
-macos: image
